@@ -1,23 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/Header"; 
+import Header from "@/components/Header";
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header /> 
+      {/* Header */}
+      <Header />
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="relative h-screen">
           <div className="absolute inset-0">
-            <img
+            <Image
               src="https://placehold.co/1920x1080"
               alt="Contact hero"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
             <div className="absolute inset-0 bg-black/30" />
           </div>
@@ -57,7 +61,7 @@ export default function ContactPage() {
               className="text-center mb-16"
             >
               <h2 className="text-2xl font-light tracking-[0.15em] mb-6">GET IN TOUCH</h2>
-              <div className="w-16 h-0.5 bg-gray-300 mx-auto"></div>
+              <div className="w-16 h-0.5 bg-gray-300 mx-auto" />
             </motion.div>
 
             <form className="space-y-8">
@@ -70,6 +74,7 @@ export default function ContactPage() {
                   id="name"
                   placeholder="Your name"
                   className="border border-gray-300 px-4 py-2 focus:outline-none focus:border-[#321737]"
+                  required
                 />
               </div>
 
@@ -82,6 +87,7 @@ export default function ContactPage() {
                   id="email"
                   placeholder="Your email"
                   className="border border-gray-300 px-4 py-2 focus:outline-none focus:border-[#321737]"
+                  required
                 />
               </div>
 
@@ -94,6 +100,7 @@ export default function ContactPage() {
                   rows={5}
                   placeholder="Your message"
                   className="border border-gray-300 px-4 py-2 focus:outline-none focus:border-[#321737]"
+                  required
                 />
               </div>
 
@@ -108,7 +115,8 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
- {/* Footer */}
+
+      {/* Footer */}
       <footer className="py-6 px-8 border-t border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-xs tracking-wider text-gray-600">
@@ -119,6 +127,8 @@ export default function ContactPage() {
               <motion.div key={platform} whileHover={{ opacity: 0.7 }}>
                 <Link
                   href={`https://${platform}.com`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 hover:text-gray-900 transition-colors text-xs tracking-wider"
                 >
                   {platform.charAt(0).toUpperCase() + platform.slice(1)}
