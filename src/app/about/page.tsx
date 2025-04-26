@@ -1,65 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image"; // <-- imported Next.js Image component
+import Image from "next/image";
+import Header from "@/components/Header"; // ✅ Use new Header component
 
 export default function AboutPage() {
-  const [scrolled, setScrolled] = useState(false);
-  const purple = "#321737";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Navigation */}
-      <motion.header
-        className="fixed w-full z-50 transition-colors duration-300"
-        initial={{ backgroundColor: "transparent" }}
-        animate={{ backgroundColor: scrolled ? purple : "transparent" }}
-        transition={{ duration: 0.3 }}
-      >
-        <nav className="max-w-7xl mx-auto px-8 py-6 flex justify-center items-center relative">
-          <div className="flex items-center space-x-8">
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/about" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                ABOUT
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/contact" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                CONTACT
-              </Link>
-            </motion.div>
-          </div>
-
-          <motion.div whileHover={{ opacity: 0.9 }} className="mx-8">
-            <Link href="/" className="text-2xl font-light tracking-[0.15em] text-white">
-              ATELIER GHAZAL
-            </Link>
-          </motion.div>
-
-          <div className="flex items-center space-x-8">
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/collection" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                COLLECTION
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/news" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                NEWS
-              </Link>
-            </motion.div>
-          </div>
-        </nav>
-      </motion.header>
+      <Header /> {/* ✅ Clean imported header */}
 
       {/* Main Content */}
       <main className="flex-grow">
@@ -122,7 +71,7 @@ export default function AboutPage() {
                 viewport={{ once: true }}
               >
                 <p className="text-gray-700 mb-6 leading-relaxed">
-                  Founded in 2023 by master corsetier Ghazal Ghasemi, Atelier Ghazal was born from a passion for historical craftsmanship and modern femininity. After years of apprenticeship with some of Europe&apos;s most renowned artisans, Ghazal established her Parisian atelier with a singular vision: to revive the artistry of bespoke corsetry while embracing contemporary aesthetics.
+                  Founded in 2023 by master corsetier Ghazal Ghasemi, Atelier Ghazal was born from a passion for historical craftsmanship and modern femininity. After years of apprenticeship with some of Europe's most renowned artisans, Ghazal established her Parisian atelier with a singular vision: to revive the artistry of bespoke corsetry while embracing contemporary aesthetics.
                 </p>
                 <p className="text-gray-700 mb-6 leading-relaxed">
                   Each piece created in our atelier represents countless hours of meticulous handwork, combining time-honored techniques with innovative approaches to comfort and design. We believe that a corset should be more than a garment—it should be an embodiment of personal expression, a celebration of form, and an heirloom to treasure.

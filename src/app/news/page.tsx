@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Header from "@/components/Header"; // ✅ Import shared header
 
 export default function NewsPage() {
   const [scrolled, setScrolled] = useState(false);
@@ -58,47 +59,8 @@ export default function NewsPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Navigation */}
-      <motion.header
-        className="fixed w-full z-50 transition-colors duration-300"
-        initial={{ backgroundColor: "transparent" }}
-        animate={{ backgroundColor: scrolled ? purple : "transparent" }}
-        transition={{ duration: 0.3 }}
-      >
-        <nav className="max-w-7xl mx-auto px-8 py-6 flex justify-center items-center relative">
-          <div className="flex items-center space-x-8">
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/about" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                ABOUT
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/contact" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                CONTACT
-              </Link>
-            </motion.div>
-          </div>
-
-          <motion.div whileHover={{ opacity: 0.9 }} className="mx-8">
-            <Link href="/" className="text-2xl font-light tracking-[0.15em] text-white">
-              ATELIER GHAZAL
-            </Link>
-          </motion.div>
-
-          <div className="flex items-center space-x-8">
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/collection" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                COLLECTION
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ opacity: 0.7 }}>
-              <Link href="/news" className="text-xs tracking-[0.15em] text-white hover:opacity-70 transition-opacity">
-                NEWS
-              </Link>
-            </motion.div>
-          </div>
-        </nav>
-      </motion.header>
+      {/* ✅ Shared Header with scroll effect */}
+      <Header scrolled={scrolled} />
 
       {/* Main Content */}
       <main className="flex-grow">
@@ -164,8 +126,8 @@ export default function NewsPage() {
               <div className="w-16 h-0.5 bg-gray-300 mx-auto"></div>
             </motion.div>
 
-            {/* Featured Article */}
-            {newsArticles.find((article) => article.featured) && (
+            {/* Featured */}
+            {newsArticles.find((a) => a.featured) && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -174,17 +136,13 @@ export default function NewsPage() {
                 className="mb-20"
               >
                 {(() => {
-                  const featured = newsArticles.find((article) => article.featured);
+                  const featured = newsArticles.find((a) => a.featured);
                   if (!featured) return null;
                   return (
                     <div className="grid md:grid-cols-2 gap-8 items-center">
                       <div className="overflow-hidden">
                         <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.6 }}>
-                          <img
-                            src={featured.image}
-                            alt={featured.title}
-                            className="w-full h-full object-cover"
-                          />
+                          <img src={featured.image} alt={featured.title} className="w-full h-full object-cover" />
                         </motion.div>
                       </div>
                       <div className="py-6">
@@ -206,38 +164,35 @@ export default function NewsPage() {
               </motion.div>
             )}
 
-            {/* News Grid */}
+            {/* News Cards */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
               {newsArticles
-                .filter((article) => !article.featured)
-                .map((article, index) => (
+                .filter((a) => !a.featured)
+                .map((a, i) => (
                   <motion.div
-                    key={article.id}
+                    key={a.id}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
                     viewport={{ once: true }}
                     className="group"
                   >
                     <div className="overflow-hidden mb-4">
                       <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }}>
-                        <img
-                          src={article.image}
-                          alt={article.title}
-                          className="w-full aspect-video object-cover"
-                        />
+                        <img src={a.image} alt={a.title} className="w-full aspect-video object-cover" />
                       </motion.div>
                     </div>
-                    <div className="text-xs tracking-wider text-gray-500 mb-2">{article.date}</div>
-                    <h3 className="text-lg font-light mb-2">{article.title}</h3>
-                    <p className="text-gray-600">{article.excerpt}</p>
+                    <div className="text-xs tracking-wider text-gray-500 mb-2">{a.date}</div>
+                    <h3 className="text-lg font-light mb-2">{a.title}</h3>
+                    <p className="text-gray-600">{a.excerpt}</p>
                   </motion.div>
                 ))}
             </div>
           </div>
         </section>
       </main>
- {/* Footer */}
+
+      {/* Footer */}
       <footer className="py-6 px-8 border-t border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-xs tracking-wider text-gray-600">
