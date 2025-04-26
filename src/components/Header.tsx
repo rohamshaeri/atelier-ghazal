@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link"; // ✅ Correct import
 import { usePathname } from "next/navigation";
 
 const Header = () => {
@@ -17,10 +18,10 @@ const Header = () => {
   }, []);
 
   const linkClass = (href: string) =>
-    `hover:opacity-70 ${pathname === href ? "text-[#f4d6ec]" : ""}`;  
+    `hover:opacity-70 ${pathname === href ? "text-[#f4d6ec]" : ""}`;
 
   const handleLinkClick = () => {
-    setMenuOpen(false); // Close menu after clicking link (mobile)
+    setMenuOpen(false); // close mobile menu after click
   };
 
   return (
@@ -53,27 +54,27 @@ const Header = () => {
             </svg>
           </button>
 
-          <a
+          <Link
             href="/"
             className="text-xl font-light tracking-[0.15em] whitespace-nowrap"
           >
             ATELIER GHAZAL
-          </a>
+          </Link>
 
           <div className="w-6" /> {/* Spacer */}
         </div>
 
-        {/* Mobile Dropdown Animated */}
+        {/* Mobile Dropdown */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: menuOpen ? 1 : 0, y: menuOpen ? 0 : -10 }}
           transition={{ duration: 0.3 }}
           className={`sm:hidden ${menuOpen ? "flex" : "hidden"} mt-4 flex-col items-center space-y-3 text-xs tracking-[0.15em]`}
         >
-          <a href="/about" onClick={handleLinkClick} className={linkClass("/about")}>ABOUT</a>
-          <a href="/contact" onClick={handleLinkClick} className={linkClass("/contact")}>CONTACT</a>
-          <a href="/collection" onClick={handleLinkClick} className={linkClass("/collection")}>COLLECTION</a>
-          <a href="/news" onClick={handleLinkClick} className={linkClass("/news")}>NEWS</a>
+          <Link href="/about" onClick={handleLinkClick} className={linkClass("/about")}>ABOUT</Link>
+          <Link href="/contact" onClick={handleLinkClick} className={linkClass("/contact")}>CONTACT</Link>
+          <Link href="/collection" onClick={handleLinkClick} className={linkClass("/collection")}>COLLECTION</Link>
+          <Link href="/news" onClick={handleLinkClick} className={linkClass("/news")}>NEWS</Link>
         </motion.div>
 
         {/* Desktop Nav */}
@@ -81,24 +82,24 @@ const Header = () => {
           <div className="flex items-center justify-center relative text-xs tracking-[0.15em]">
             {/* Left nav */}
             <div className="flex items-center space-x-8">
-              <a href="/about" className={linkClass("/about")}>ABOUT</a>
-              <a href="/contact" className={linkClass("/contact")}>CONTACT</a>
+              <Link href="/about" className={linkClass("/about")}>ABOUT</Link>
+              <Link href="/contact" className={linkClass("/contact")}>CONTACT</Link>
             </div>
 
             {/* Center logo */}
             <div className="mx-8">
-              <a
+              <Link
                 href="/"
                 className="text-2xl font-light tracking-[0.15em] whitespace-nowrap"
               >
                 ATELIER GHAZAL
-              </a>
+              </Link>
             </div>
 
             {/* Right nav */}
             <div className="flex items-center space-x-8">
-              <a href="/collection" className={linkClass("/collection")}>COLLECTION</a>
-              <a href="/news" className={linkClass("/news")}>NEWS</a>
+              <Link href="/collection" className={linkClass("/collection")}>COLLECTION</Link>
+              <Link href="/news" className={linkClass("/news")}>NEWS</Link>
             </div>
           </div>
         </div>

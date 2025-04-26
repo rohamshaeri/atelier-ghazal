@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import Header from "@/components/Header"; // ✅ Use new Header component
+import Header from "@/components/Header"; 
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header /> {/* ✅ Clean imported header */}
+      <Header /> 
 
       {/* Main Content */}
       <main className="flex-grow">
@@ -71,7 +71,8 @@ export default function AboutPage() {
                 viewport={{ once: true }}
               >
                 <p className="text-gray-700 mb-6 leading-relaxed">
-                  Founded in 2023 by master corsetier Ghazal Ghasemi, Atelier Ghazal was born from a passion for historical craftsmanship and modern femininity. After years of apprenticeship with some of Europe's most renowned artisans, Ghazal established her Parisian atelier with a singular vision: to revive the artistry of bespoke corsetry while embracing contemporary aesthetics.
+                  Founded in 2023 by master corsetier Ghazal Ghasemi, Atelier Ghazal was born from a passion for historical craftsmanship and modern femininity. After years of apprenticeship with some of Europe&apos;s most renowned artisans, Ghazal established her Parisian atelier with a singular vision: to revive the artistry of bespoke corsetry while embracing contemporary aesthetics.
+
                 </p>
                 <p className="text-gray-700 mb-6 leading-relaxed">
                   Each piece created in our atelier represents countless hours of meticulous handwork, combining time-honored techniques with innovative approaches to comfort and design. We believe that a corset should be more than a garment—it should be an embodiment of personal expression, a celebration of form, and an heirloom to treasure.
