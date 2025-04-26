@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Header from "@/components/Header"; // ✅ Import shared header
+import Header from "@/components/Header";
+import Image from "next/image"; // ✅ Imported
 
 export default function NewsPage() {
   const [scrolled, setScrolled] = useState(false);
-  const purple = "#321737";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +59,7 @@ export default function NewsPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* ✅ Shared Header with scroll effect */}
+      {/* Header */}
       <Header scrolled={scrolled} />
 
       {/* Main Content */}
@@ -67,10 +67,12 @@ export default function NewsPage() {
         {/* Hero Section */}
         <section className="relative h-screen">
           <div className="absolute inset-0">
-            <img
+            <Image
               src="https://placehold.co/1920x1080"
               alt="News hero"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              priority
             />
             <div className="absolute inset-0 bg-black/30" />
           </div>
@@ -140,9 +142,14 @@ export default function NewsPage() {
                   if (!featured) return null;
                   return (
                     <div className="grid md:grid-cols-2 gap-8 items-center">
-                      <div className="overflow-hidden">
-                        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.6 }}>
-                          <img src={featured.image} alt={featured.title} className="w-full h-full object-cover" />
+                      <div className="overflow-hidden relative w-full h-full">
+                        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.6 }} className="relative w-full h-full">
+                          <Image
+                            src={featured.image}
+                            alt={featured.title}
+                            fill
+                            className="object-cover"
+                          />
                         </motion.div>
                       </div>
                       <div className="py-6">
@@ -177,9 +184,14 @@ export default function NewsPage() {
                     viewport={{ once: true }}
                     className="group"
                   >
-                    <div className="overflow-hidden mb-4">
-                      <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }}>
-                        <img src={a.image} alt={a.title} className="w-full aspect-video object-cover" />
+                    <div className="overflow-hidden mb-4 relative w-full aspect-video">
+                      <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }} className="relative w-full h-full">
+                        <Image
+                          src={a.image}
+                          alt={a.title}
+                          fill
+                          className="object-cover"
+                        />
                       </motion.div>
                     </div>
                     <div className="text-xs tracking-wider text-gray-500 mb-2">{a.date}</div>

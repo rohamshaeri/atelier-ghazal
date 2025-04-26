@@ -2,20 +2,23 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Header from "@/components/Header"; // ✅ shared header
+import Header from "@/components/Header";
+import Image from "next/image"; // 
 
 const HomePage = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header /> {/* ✅ inserted header here */}
+      <Header />
 
       {/* Hero Section */}
       <section className="relative h-screen w-full">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/hero.jpg"
             alt="Corset background"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
