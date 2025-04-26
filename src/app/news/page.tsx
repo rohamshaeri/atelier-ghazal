@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Header from "@/components/Header";
-import Image from "next/image"; // ✅ Imported
+import Image from "next/image"; 
 
 export default function NewsPage() {
   const [scrolled, setScrolled] = useState(false);
@@ -60,7 +60,7 @@ export default function NewsPage() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <Header scrolled={scrolled} />
+      <Header />
 
       {/* Main Content */}
       <main className="flex-grow">
