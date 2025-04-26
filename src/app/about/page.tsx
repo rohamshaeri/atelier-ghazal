@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image"; // <-- imported Next.js Image component
 
 export default function AboutPage() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,8 +11,7 @@ export default function AboutPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      setScrolled(isScrolled);
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -66,10 +66,12 @@ export default function AboutPage() {
         {/* Hero Section */}
         <section className="relative h-screen">
           <div className="absolute inset-0">
-            <img
+            <Image
               src="https://placehold.co/1920x1080"
               alt="Atelier interior"
-              className="w-full h-full object-cover"
+              layout="fill"
+              objectFit="cover"
+              priority
             />
             <div className="absolute inset-0 bg-black/30" />
           </div>
@@ -120,7 +122,7 @@ export default function AboutPage() {
                 viewport={{ once: true }}
               >
                 <p className="text-gray-700 mb-6 leading-relaxed">
-                  Founded in 2023 by master corsetier Ghazal Ghasemi, Atelier Ghazal was born from a passion for historical craftsmanship and modern femininity. After years of apprenticeship with some of Europe's most renowned artisans, Ghazal established her Parisian atelier with a singular vision: to revive the artistry of bespoke corsetry while embracing contemporary aesthetics.
+                  Founded in 2023 by master corsetier Ghazal Ghasemi, Atelier Ghazal was born from a passion for historical craftsmanship and modern femininity. After years of apprenticeship with some of Europe&apos;s most renowned artisans, Ghazal established her Parisian atelier with a singular vision: to revive the artistry of bespoke corsetry while embracing contemporary aesthetics.
                 </p>
                 <p className="text-gray-700 mb-6 leading-relaxed">
                   Each piece created in our atelier represents countless hours of meticulous handwork, combining time-honored techniques with innovative approaches to comfort and design. We believe that a corset should be more than a garment—it should be an embodiment of personal expression, a celebration of form, and an heirloom to treasure.
@@ -133,11 +135,12 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <div className="aspect-[3/4] overflow-hidden">
-                  <img
+                <div className="aspect-[3/4] overflow-hidden relative">
+                  <Image
                     src="https://placehold.co/800x1000"
                     alt="Atelier craftsmanship"
-                    className="w-full h-full object-cover"
+                    layout="fill"
+                    objectFit="cover"
                   />
                 </div>
               </motion.div>
@@ -190,7 +193,8 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
- {/* Footer */}
+
+      {/* Footer */}
       <footer className="py-6 px-8 border-t border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-xs tracking-wider text-gray-600">
