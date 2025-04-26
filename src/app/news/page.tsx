@@ -3,16 +3,15 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
-import Image from "next/image"; 
 
 export default function NewsPage() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      setScrolled(isScrolled);
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -62,7 +61,7 @@ export default function NewsPage() {
       {/* Header */}
       <Header />
 
-      {/* Main Content */}
+      {/* Main */}
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="relative h-screen">
@@ -76,40 +75,31 @@ export default function NewsPage() {
             />
             <div className="absolute inset-0 bg-black/30" />
           </div>
-
-          <div className="relative h-full flex items-center justify-center text-white px-4">
-            <div className="text-center">
+          <div className="relative h-full flex items-center justify-center text-white text-center px-4">
+            <div>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-3xl md:text-4xl font-light tracking-[0.2em] mb-6"
+                className="text-4xl font-light tracking-widest mb-6"
               >
                 News & Events
               </motion.h1>
-
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 1 }}
-                className="max-w-xl mx-auto text-lg mb-16 font-light"
+                className="max-w-xl mx-auto text-lg mb-10 font-light"
               >
                 The latest from our atelier and beyond
               </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 1 }}
+              <motion.a
+                href="#news"
+                whileHover={{ scale: 1.05 }}
+                className="px-12 py-3 border border-white text-xs tracking-widest hover:bg-white hover:text-black transition"
               >
-                <motion.a
-                  href="#news"
-                  whileHover={{ scale: 1.02 }}
-                  className="px-12 py-3 border border-white text-xs tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300"
-                >
-                  READ THE LATEST
-                </motion.a>
-              </motion.div>
+                READ THE LATEST
+              </motion.a>
             </div>
           </div>
         </section>
@@ -124,12 +114,12 @@ export default function NewsPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-2xl font-light tracking-[0.15em] mb-6">LATEST NEWS</h2>
-              <div className="w-16 h-0.5 bg-gray-300 mx-auto"></div>
+              <h2 className="text-2xl font-light tracking-wider mb-6">LATEST NEWS</h2>
+              <div className="w-16 h-0.5 bg-gray-300 mx-auto" />
             </motion.div>
 
-            {/* Featured */}
-            {newsArticles.find((a) => a.featured) && (
+            {/* Featured Article */}
+            {newsArticles.find(a => a.featured) && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -138,12 +128,12 @@ export default function NewsPage() {
                 className="mb-20"
               >
                 {(() => {
-                  const featured = newsArticles.find((a) => a.featured);
+                  const featured = newsArticles.find(a => a.featured);
                   if (!featured) return null;
                   return (
                     <div className="grid md:grid-cols-2 gap-8 items-center">
                       <div className="overflow-hidden relative w-full h-full">
-                        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.6 }} className="relative w-full h-full">
+                        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.6 }}>
                           <Image
                             src={featured.image}
                             alt={featured.title}
@@ -153,13 +143,13 @@ export default function NewsPage() {
                         </motion.div>
                       </div>
                       <div className="py-6">
-                        <div className="text-xs tracking-wider text-gray-500 mb-4">{featured.date}</div>
-                        <h3 className="text-2xl font-light tracking-[0.05em] mb-4">{featured.title}</h3>
+                        <div className="text-xs tracking-wide text-gray-500 mb-4">{featured.date}</div>
+                        <h3 className="text-2xl font-light tracking-wide mb-4">{featured.title}</h3>
                         <p className="text-gray-700 mb-6 leading-relaxed">{featured.excerpt}</p>
                         <motion.div whileHover={{ x: 5 }}>
                           <Link
                             href="#"
-                            className="text-xs tracking-[0.15em] text-[#321737] border-b-2 border-[#321737] pb-1 inline-block hover:opacity-70 transition-opacity"
+                            className="text-xs tracking-widest text-[#321737] border-b-2 border-[#321737] pb-1 hover:opacity-70 transition"
                           >
                             READ MORE
                           </Link>
@@ -171,34 +161,32 @@ export default function NewsPage() {
               </motion.div>
             )}
 
-            {/* News Cards */}
+            {/* Other News */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-              {newsArticles
-                .filter((a) => !a.featured)
-                .map((a, i) => (
-                  <motion.div
-                    key={a.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                    viewport={{ once: true }}
-                    className="group"
-                  >
-                    <div className="overflow-hidden mb-4 relative w-full aspect-video">
-                      <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }} className="relative w-full h-full">
-                        <Image
-                          src={a.image}
-                          alt={a.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </motion.div>
-                    </div>
-                    <div className="text-xs tracking-wider text-gray-500 mb-2">{a.date}</div>
-                    <h3 className="text-lg font-light mb-2">{a.title}</h3>
-                    <p className="text-gray-600">{a.excerpt}</p>
-                  </motion.div>
-                ))}
+              {newsArticles.filter(a => !a.featured).map((a, i) => (
+                <motion.div
+                  key={a.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group"
+                >
+                  <div className="overflow-hidden mb-4 relative w-full aspect-video">
+                    <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }}>
+                      <Image
+                        src={a.image}
+                        alt={a.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </motion.div>
+                  </div>
+                  <div className="text-xs tracking-wide text-gray-500 mb-2">{a.date}</div>
+                  <h3 className="text-lg font-light mb-2">{a.title}</h3>
+                  <p className="text-gray-600">{a.excerpt}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
@@ -207,15 +195,15 @@ export default function NewsPage() {
       {/* Footer */}
       <footer className="py-6 px-8 border-t border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-xs tracking-wider text-gray-600">
-            ATELIER GHAZAL · 416, rue Saint-Honoré 75008 Paris
+          <div className="text-xs tracking-widest text-gray-600">
+            ATELIER GHAZAL · 416, rue Saint-Honoré, 75008 Paris
           </div>
           <div className="flex items-center space-x-6">
             {["facebook", "instagram", "twitter", "youtube"].map((platform) => (
               <motion.div key={platform} whileHover={{ opacity: 0.7 }}>
                 <Link
                   href={`https://${platform}.com`}
-                  className="text-gray-600 hover:text-gray-900 transition-colors text-xs tracking-wider"
+                  className="text-gray-600 hover:text-gray-900 transition-colors text-xs tracking-widest"
                 >
                   {platform.charAt(0).toUpperCase() + platform.slice(1)}
                 </Link>
