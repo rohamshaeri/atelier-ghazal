@@ -1,56 +1,39 @@
 "use client";
 
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function NewsPage() {
-  useEffect(() => {
-    const handleScroll = () => {
-      // You don't need to set anything here
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const newsArticles = [
     {
       id: 1,
-      title: "Spring/Summer 2025 Collection Preview",
-      date: "April 15, 2025",
-      excerpt: "Discover our newest designs featuring lightweight silks and botanical-inspired embroidery.",
-      image: "https://placehold.co/800x500",
-      featured: true,
+      title: "Introducing Our New Corset Collection",
+      date: "April 20, 2025",
+      imageUrl: "/api/placeholder/600/400",
+      description:
+        "We are thrilled to unveil our latest collection — blending timeless elegance with modern craftsmanship. Explore the new pieces in our atelier!",
+      link: "/news/new-corset-collection",
     },
     {
       id: 2,
-      title: "Atelier Ghazal Featured in Vogue Paris",
-      date: "March 22, 2025",
-      excerpt: "Our signature Céleste corset was featured in Vogue Paris' annual haute couture spotlight.",
-      image: "https://placehold.co/801x500",
+      title: "Behind the Scenes: Crafting a Custom Corset",
+      date: "March 12, 2025",
+      imageUrl: "/api/placeholder/601/400",
+      description:
+        "Discover the intricate process that goes into each bespoke corset. From sketch to fitting, every step is tailored to perfection.",
+      link: "/news/behind-the-scenes",
     },
     {
       id: 3,
-      title: "Collaboration with Parisian Textile Artist Announced",
-      date: "February 10, 2025",
-      excerpt: "Announcing our upcoming collaboration with renowned textile artist Sophie Lavalle.",
-      image: "https://placehold.co/802x500",
-    },
-    {
-      id: 4,
-      title: "New In-Studio Fitting Experience",
-      date: "January 30, 2025",
-      excerpt: "We’ve redesigned our atelier fitting rooms for greater comfort and privacy.",
-      image: "https://placehold.co/803x500",
-    },
-    {
-      id: 5,
-      title: "Corsetry Workshop Series",
-      date: "January 15, 2025",
-      excerpt: "Join our intimate workshop series on corset construction and historical techniques.",
-      image: "https://placehold.co/804x500",
+      title: "Atelier Ghazal at Paris Fashion Week",
+      date: "February 5, 2025",
+      imageUrl: "/api/placeholder/602/400",
+      description:
+        "We proudly showcased our artisanal designs at Paris Fashion Week. Thank you for being part of this incredible journey.",
+      link: "/news/paris-fashion-week",
     },
   ];
 
@@ -59,87 +42,44 @@ export default function NewsPage() {
       {/* Header */}
       <Header />
 
-      {/* Main */}
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative h-screen">
-          <div className="absolute inset-0">
-            <Image
-              src="https://placehold.co/1920x1080"
-              alt="News hero"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black/30" />
-          </div>
-          <div className="relative h-full flex items-center justify-center text-white text-center px-4">
-            <div>
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                className="text-4xl font-light tracking-widest mb-6"
-              >
-                News & Events
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 1 }}
-                className="max-w-xl mx-auto text-lg mb-10 font-light"
-              >
-                The latest from our atelier and beyond
-              </motion.p>
-              <motion.a
-                href="#news"
-                whileHover={{ scale: 1.05 }}
-                className="px-12 py-3 border border-white text-xs tracking-widest hover:bg-white hover:text-black transition"
-              >
-                READ THE LATEST
-              </motion.a>
-            </div>
-          </div>
-        </section>
-
-        {/* News Section */}
-        <section id="news" className="py-24 px-8 bg-white">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
+      {/* Main Content */}
+      <main className="flex-grow bg-white">
+        <section className="py-24 px-6 md:px-12">
+          <div className="max-w-7xl mx-auto">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl md:text-5xl font-light text-center mb-16 tracking-[0.15em]"
             >
-              <h2 className="text-2xl font-light tracking-wider mb-6">LATEST NEWS</h2>
-              <div className="w-16 h-0.5 bg-gray-300 mx-auto" />
-            </motion.div>
+              Atelier Ghazal News
+            </motion.h1>
 
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
               {newsArticles.map((article) => (
                 <motion.div
                   key={article.id}
-                  whileHover={{ scale: 1.02 }}
-                  className="overflow-hidden rounded-lg shadow-md"
+                  className="bg-[#f8f8f8] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
                 >
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    width={800}
-                    height={500}
-                    className="w-full h-60 object-cover"
-                  />
-                  <div className="p-6 bg-white">
-                    <h3 className="text-xl font-semibold mb-2">{article.title}</h3>
-                    <p className="text-gray-500 text-sm mb-4">{article.date}</p>
-                    <p className="text-gray-700 text-sm mb-6">{article.excerpt}</p>
-                    <Link href="#">
-                      <div className="text-sm font-medium text-[#321737] hover:underline">
-                        Read more →
-                      </div>
-                    </Link>
-                  </div>
+                  <Link href={article.link}>
+                    <div className="relative w-full h-64">
+                      <Image
+                        src={article.imageUrl}
+                        alt={article.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h2 className="text-xl font-medium mb-2">{article.title}</h2>
+                      <p className="text-gray-500 text-sm mb-4">{article.date}</p>
+                      <p className="text-gray-700 text-sm">{article.description}</p>
+                    </div>
+                  </Link>
                 </motion.div>
               ))}
             </div>
@@ -148,9 +88,7 @@ export default function NewsPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#321737] text-white py-8 text-center text-xs tracking-widest">
-        © {new Date().getFullYear()} Atelier Ghazal. All rights reserved.
-      </footer>
+      <Footer />
     </div>
   );
 }
