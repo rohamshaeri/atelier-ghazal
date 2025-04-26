@@ -1,17 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 
 export default function NewsPage() {
-  const [scrolled, setScrolled] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      // You don't need to set anything here
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -118,73 +116,30 @@ export default function NewsPage() {
               <div className="w-16 h-0.5 bg-gray-300 mx-auto" />
             </motion.div>
 
-            {/* Featured Article */}
-            {newsArticles.find(a => a.featured) && (
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="mb-20"
-              >
-                {(() => {
-                  const featured = newsArticles.find(a => a.featured);
-                  if (!featured) return null;
-                  return (
-                    <div className="grid md:grid-cols-2 gap-8 items-center">
-                      <div className="overflow-hidden relative w-full h-full">
-                        <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.6 }}>
-                          <Image
-                            src={featured.image}
-                            alt={featured.title}
-                            fill
-                            className="object-cover"
-                          />
-                        </motion.div>
-                      </div>
-                      <div className="py-6">
-                        <div className="text-xs tracking-wide text-gray-500 mb-4">{featured.date}</div>
-                        <h3 className="text-2xl font-light tracking-wide mb-4">{featured.title}</h3>
-                        <p className="text-gray-700 mb-6 leading-relaxed">{featured.excerpt}</p>
-                        <motion.div whileHover={{ x: 5 }}>
-                          <Link
-                            href="#"
-                            className="text-xs tracking-widest text-[#321737] border-b-2 border-[#321737] pb-1 hover:opacity-70 transition"
-                          >
-                            READ MORE
-                          </Link>
-                        </motion.div>
-                      </div>
-                    </div>
-                  );
-                })()}
-              </motion.div>
-            )}
-
-            {/* Other News */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-              {newsArticles.filter(a => !a.featured).map((a, i) => (
+            <div className="grid md:grid-cols-2 gap-12">
+              {newsArticles.map((article) => (
                 <motion.div
-                  key={a.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group"
+                  key={article.id}
+                  whileHover={{ scale: 1.02 }}
+                  className="overflow-hidden rounded-lg shadow-md"
                 >
-                  <div className="overflow-hidden mb-4 relative w-full aspect-video">
-                    <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.6 }}>
-                      <Image
-                        src={a.image}
-                        alt={a.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </motion.div>
+                  <Image
+                    src={article.image}
+                    alt={article.title}
+                    width={800}
+                    height={500}
+                    className="w-full h-60 object-cover"
+                  />
+                  <div className="p-6 bg-white">
+                    <h3 className="text-xl font-semibold mb-2">{article.title}</h3>
+                    <p className="text-gray-500 text-sm mb-4">{article.date}</p>
+                    <p className="text-gray-700 text-sm mb-6">{article.excerpt}</p>
+                    <Link href="#">
+                      <div className="text-sm font-medium text-[#321737] hover:underline">
+                        Read more →
+                      </div>
+                    </Link>
                   </div>
-                  <div className="text-xs tracking-wide text-gray-500 mb-2">{a.date}</div>
-                  <h3 className="text-lg font-light mb-2">{a.title}</h3>
-                  <p className="text-gray-600">{a.excerpt}</p>
                 </motion.div>
               ))}
             </div>
@@ -193,24 +148,8 @@ export default function NewsPage() {
       </main>
 
       {/* Footer */}
-      <footer className="py-6 px-8 border-t border-gray-200 bg-white">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-xs tracking-widest text-gray-600">
-            ATELIER GHAZAL · 416, rue Saint-Honoré, 75008 Paris
-          </div>
-          <div className="flex items-center space-x-6">
-            {["facebook", "instagram", "twitter", "youtube"].map((platform) => (
-              <motion.div key={platform} whileHover={{ opacity: 0.7 }}>
-                <Link
-                  href={`https://${platform}.com`}
-                  className="text-gray-600 hover:text-gray-900 transition-colors text-xs tracking-widest"
-                >
-                  {platform.charAt(0).toUpperCase() + platform.slice(1)}
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+      <footer className="bg-[#321737] text-white py-8 text-center text-xs tracking-widest">
+        © {new Date().getFullYear()} Atelier Ghazal. All rights reserved.
       </footer>
     </div>
   );
